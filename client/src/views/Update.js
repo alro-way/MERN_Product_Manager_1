@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import ProductForm from '../components/ProductForm';
 import axios from 'axios';
 //REUSING COMPONENTS practicing:
+import { navigate } from '@reach/router'
+import DeleteButton from '../components/DeleteButton';
 
 export default props => {
     const { id } = props;
@@ -25,12 +27,18 @@ export default props => {
     return(
         <div>
             <h1>Update a Product</h1>
-            {loaded && (<ProductForm 
-                onSubmitProp = {updateProduct} 
-                initialTitle = {product.title}
-                initialPrice = {product.price}
-                initialDescription = {product.description}
-                />
+            {loaded && (
+                <>
+                    <ProductForm 
+                        onSubmitProp = {updateProduct} 
+                        initialTitle = {product.title}
+                        initialPrice = {product.price}
+                        initialDescription = {product.description}
+                        />
+                    <br/>
+                    <DeleteButton productId={product._id} successCallback={() => navigate("/product")}/>
+                </>
+                
             )}
 
             

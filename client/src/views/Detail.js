@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Link, Router } from '@reach/router';
+import { Link } from '@reach/router';
 
 import axios from 'axios';
+//REUSING COMPONENTS practicing part 2:
+import { navigate } from '@reach/router'
+import DeleteButton from '../components/DeleteButton';
+
 
 export default props => {
-    const {removeFromDom} = props;
-    const deleteProduct = (productId) => {
-        axios.delete('http://localhost:8000/api/product/' + productId)
-            .then(res => {
-                removeFromDom(productId) //ERROR: Unhandled Rejection (TypeError): removeFromDom is not a function
-            })
-    };
+    // const {removeFromDom} = props;
+    // const deleteProduct = (productId) => {
+    //     axios.delete('http://localhost:8000/api/product/' + productId)
+    //         .then(res => {
+    //             removeFromDom(productId) //ERROR: Unhandled Rejection (TypeError): removeFromDom is not a function
+    //         })
+    // };
    
     
     const [product, setProduct] = useState({})
@@ -29,9 +33,8 @@ export default props => {
             <Link to={"/" + product._id + "/edit"}>Edit</Link>
             <br/>
            
-            <Link to={"/product"} onClick={(e) => (deleteProduct(product._id))}>
-            Delete
-            </Link>
+            <br/>
+            <DeleteButton productId={product._id} successCallback={() => navigate("/product")}/>
             
         </div>
     )
